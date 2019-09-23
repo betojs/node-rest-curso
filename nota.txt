@@ -1,0 +1,7 @@
+
+betojs
+1g0FFa3aMtDbzGN3
+
+
+
+mongodb+srv://betojs:<password>@cluster0-xaalm.mongodb.net/cafe
