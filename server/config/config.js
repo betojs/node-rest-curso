@@ -32,5 +32,22 @@ if(process.env.NODE_ENV === 'dev'){
 
 process.env.URLB = urlDB;
 
+/* *****************************************
+*	VenCimiento del TOKEN
+*	60segundos
+*   60minutos
+*   24 horas
+*   30 dias
+/* *****************************************/
+
+process.env.CADUCIDAD_TOKEN = 60*60*24*30
+
+
+/* *****************************************
+*	SEED de autenticacion
+*	Se-cre*t-is-a-Se*cre-t
+/* *****************************************/
+
+process.env.SEED= process.env.SEED || 'se-cre*t'
 
 // mongodb

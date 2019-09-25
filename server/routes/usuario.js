@@ -3,10 +3,10 @@ const express = require('express')
 const app = express()
 const bcrypt = require ('bcrypt');
 const _ = require('underscore');
-
+const {verificaToken, verificaAdmin_Role} =require('../middlewares/autenticacio_token');
 const Usuario = require ('../models/usuario')
 
-app.get('/usuario', function (req, res) {
+app.get('/usuario', verificaToken, (req, res) => {
 
 
     let desde = req.query.desde || 0;
@@ -46,7 +46,7 @@ app.get('/usuario', function (req, res) {
   
   //post -- crear datos
   
-app.post('/usuario', function (req, res) {
+app.post('/usuario',[verificaToken, verificaAdmin_Role],  (req, res) =>{
     let body = req.body;
 
     let usuario = new Usuario({
@@ -73,7 +73,7 @@ app.post('/usuario', function (req, res) {
  
 })
 // put -- actualizar datos
-app.put('/usuario/:id', function (req, res) {
+app.put('/usuario/:id', [verificaToken, verificaAdmin_Role], (req, res)=> {
     let id = req.params.id;
     let body = _.pick(req.body,['nombre', 'email', 'img', 'rol', 'estado']) ;
 
@@ -97,7 +97,7 @@ app.put('/usuario/:id', function (req, res) {
 })
 
 //delete -- borrar (pero no se borra se cambia el estado para no visualizarse)
-app.delete('/usuario/:id', function (req, res) {
+app.delete('/usuario/:id', [verificaToken, verificaAdmin_Role], (req, res) =>{
     let id =  req.params.id;
 
     Usuario.findByIdAndRemove(id, (err, usuarioEliminado)=>{
